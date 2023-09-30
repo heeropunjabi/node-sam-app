@@ -3,6 +3,9 @@
 //import { buildConfig } from 'payload/config';
 const { buildConfig } = require('payload/config');
 const Orders = require('./collections/Orders');
+const ContentCms = require('./collections/ContentCms');
+const JurisdictionCms = require('./collections/JurisdictionCms'); 
+const JurisdictionMeta = require('./collections/JurisdictionMeta'); 
 
 // import Categories from './collections/Categories';
 // import Media from './collections/Media';
@@ -17,7 +20,7 @@ module.exports = buildConfig({
   // admin: {
   //   user: Users.slug,
   // },
-  collections: [Orders],
+  collections: [Orders, ContentCms, JurisdictionCms, JurisdictionMeta],
   localization: {
     locales: ['en', 'es', 'de'],
     defaultLocale: 'en',

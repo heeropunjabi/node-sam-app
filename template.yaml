@@ -9,7 +9,7 @@ Description: >
 Globals:
   Function:
     Timeout: 300
-    MemorySize: 4096
+    MemorySize: 8192
 
     Tracing: Active
   Api:
@@ -20,7 +20,7 @@ Resources:
     Properties:
       CodeUri: hello-world/
       Handler: app.lambdaHandler
-      Runtime: nodejs16.x
+      Runtime: nodejs14.x
       Architectures:
       - x86_64
       Events:
@@ -28,6 +28,51 @@ Resources:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /hello
+            Method: get
+
+  HelloFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: hello-world/
+      Handler: app.lambdaHandlerHello
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Events:
+        Hello:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /hellohello
+            Method: get    
+
+  HelloCloneFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: hello-world/
+      Handler: app.lambdaHandlerClone
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Events:
+        Hello:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /helloclone
+            Method: get  
+
+  HelloSeedFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: hello-world/
+      Handler: app.doActioninitialSeed
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Events:
+        Hello:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /helloseed
             Method: get
 
   ApplicationResourceGroup:
@@ -56,3 +101,33 @@ Outputs:
   HelloWorldFunctionIamRole:
     Description: Implicit IAM Role created for Hello World function
     Value: !GetAtt HelloWorldFunctionRole.Arn
+
+  HelloApi:
+    Description: API Gateway endpoint URL for Prod stage for Hello  function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hellohello/"
+  HelloFunction:
+    Description: Hello  Lambda Function ARN
+    Value: !GetAtt HelloFunction.Arn
+  HelloFunctionIamRole:
+    Description: Implicit IAM Role created for Hello  function
+    Value: !GetAtt HelloFunctionRole.Arn  
+
+  HelloCloneApi:
+    Description: API Gateway endpoint URL for Prod stage for HelloClone  function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/helloclone/"
+  HelloCloneFunction:
+    Description: HelloClone  Lambda Function ARN
+    Value: !GetAtt HelloCloneFunction.Arn
+  HelloCloneFunctionIamRole:
+    Description: Implicit IAM Role created for HelloClone  function
+    Value: !GetAtt HelloCloneFunctionRole.Arn
+
+  HelloSeedApi:
+    Description: API Gateway endpoint URL for Prod stage for HelloSeed  function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/helloseed/"
+  HelloSeedFunction:
+    Description: HelloSeed  Lambda Function ARN
+    Value: !GetAtt HelloSeedFunction.Arn
+  HelloSeedFunctionIamRole:
+    Description: Implicit IAM Role created for HelloSeed  function
+    Value: !GetAtt HelloSeedFunctionRole.Arn
