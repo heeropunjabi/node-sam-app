@@ -74,6 +74,21 @@ Resources:
           Properties:
             Path: /helloseed
             Method: get
+  
+  HelloGetFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: hello-world/
+      Handler: app.lambdaHandlerGet
+      Runtime: nodejs14.x
+      Architectures:
+      - x86_64
+      Events:
+        Hello:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /helloget
+            Method: get          
 
   ApplicationResourceGroup:
     Type: AWS::ResourceGroups::Group
@@ -131,3 +146,13 @@ Outputs:
   HelloSeedFunctionIamRole:
     Description: Implicit IAM Role created for HelloSeed  function
     Value: !GetAtt HelloSeedFunctionRole.Arn
+
+  HelloGetApi:
+    Description: API Gateway endpoint URL for Prod stage for HelloGet  function
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/helloget/"
+  HelloGetFunction:
+    Description: HelloGet  Lambda Function ARN
+    Value: !GetAtt HelloGetFunction.Arn
+  HelloGetFunctionIamRole:
+    Description: Implicit IAM Role created for HelloGet  function
+    Value: !GetAtt HelloGetFunctionRole.Arn

@@ -6,6 +6,7 @@ const Orders = require('./collections/Orders');
 const ContentCms = require('./collections/ContentCms');
 const JurisdictionCms = require('./collections/JurisdictionCms'); 
 const JurisdictionMeta = require('./collections/JurisdictionMeta'); 
+const ContentCmsMeta = require('./collections/ContentCmsMeta');
 
 // import Categories from './collections/Categories';
 // import Media from './collections/Media';
@@ -20,7 +21,7 @@ module.exports = buildConfig({
   // admin: {
   //   user: Users.slug,
   // },
-  collections: [Orders, ContentCms, JurisdictionCms, JurisdictionMeta],
+  collections: [Orders, ContentCms, JurisdictionCms, JurisdictionMeta, ContentCmsMeta],
   localization: {
     locales: ['en', 'es', 'de'],
     defaultLocale: 'en',

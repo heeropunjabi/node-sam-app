@@ -19,26 +19,31 @@ const ContentCms = {
     {
       name: 'pageName',
       type: 'text',
-      required: true
+      required: true,
+      index: true
     },
     {
       name: 'key',
       type: 'text',
-      required: true
+      required: true,
+      index: true
     },
     {
       name: 'systemValue',
       type: 'text',
-      required: true
+      required: true,
+      // localized fields are stored as keyed objects to represent 
+      // each locale listed in the payload.config.ts. For example: { en: 'English', es: 'Espanol', ...etc }
+      localized: true,
     },
-    {
-      name: 'baseEnglishValue',
-      type: 'text',
-    },
-    {
-      name: 'baseGermanValue',
-      type: 'text',
-    },
+    // {
+    //   name: 'baseEnglishValue',
+    //   type: 'text',
+    // },
+    // {
+    //   name: 'baseGermanValue',
+    //   type: 'text',
+    // },
     {
       name: 'jurisdictionValue',
       type: 'relationship',
@@ -52,6 +57,14 @@ const ContentCms = {
     //   "6517bd6510cba1fe59df905f"
     // ]
   ],
+  indexes: [
+    {'fields':
+      {
+        pageName: 1,
+        key: 1
+      }
+    }
+  ]
 }
 
 module.exports = ContentCms;
